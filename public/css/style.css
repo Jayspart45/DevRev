@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)),
+    url("../images/img1.svg");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 450px !important;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
+  color: #efefef;
+}
+
+.container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.container label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.container input[type="text"],.container input[type="date"],.container input[type="time"],
+.container input[type="password"] {
+  width: 250px;
+  border-radius: 2px;
+  padding: 5px 0px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.container button:hover {
+  background-color: #45a049;
+}
+
+.container .signup-link {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.container .signup-link a {
+  color: #999;
+  text-decoration: none;
+}
+.flex-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
