@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Bookings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url("https://img.freepik.com/free-photo/marble-texture-background-pattern_1339-7553.jpg?w=360");
+      margin: 0;
+      padding: 0;
+    }
+
+    .topnav {
+  overflow: hidden;
+  background-color: #1a1919;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 100px;
+      background-color: #fff;
+    }
+    
+    .container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .container label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    .container input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+    
+    .container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .container button:hover {
+      background-color: #45a049;
+    }
+    
+    .container .booking-list {
+      margin-top: 20px;
+    }
+    
+    .container .booking-list table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .container .booking-list table th,
+    .container .booking-list table td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .container .booking-list table th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <div class="topnav">
+    <a class="active" href="#home">Home</a>
+    <a href="#back">Back</a>
+  </div>
+  <div class="container">
+    <h2>View Bookings</h2>
+    <form id="bookingForm">
+      <label for="flightNumber">Flight Number:</label>
+      <input type="text" id="flightNumber" name="flightNumber" required>
+      
+      <label for="bookingTime">Booking Time:</label>
+      <input type="text" id="bookingTime" name="bookingTime" required>
+      
+      <button type="submit">View Bookings</button>
+    </form>
+    
+    <div class="booking-list">
+      <h3>Bookings</h3>
+      <table id="bookingTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Flight Number</th>
+            <th>Booking Time</th>
+          </tr>
+        </thead>
+        <tbody id="bookingTableBody">
+          <!-- Booking rows will be dynamically added here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // Array to store bookings
+    var bookings = [];
+
+    // Booking Form Submit Event Listener
+    document.getElementById("bookingForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Get flight number and booking time from the form
+      var flightNumber = document.getElementById("flightNumber").value;
+      var bookingTime = document.getElementById("bookingTime").value;
+
+      // Call function to fetch bookings based on flight number and booking time
+      var filteredBookings = getBookings(flightNumber, bookingTime);
+
+      // Call function to update booking table
+      updateBookingTable(filteredBookings);
+    });
+
+    // Function to fetch bookings based on flight number and booking time
+    function getBookings(flightNumber, bookingTime) {
+      // Perform API request or database query to fetch bookings based on flight number and booking time
+
+      // Dummy data for demonstration
+      var dummyBookings = [
+        { name: "John Doe", email: "johndoe@example.com", flightNumber: "ABC123", bookingTime: "2023-06-15 10:00:00" },
+        { name: "Jane Smith", email: "janesmith@example.com", flightNumber: "XYZ789", bookingTime: "2023-06-15 11:30:00" },
+        { name: "Bob Johnson", email: "bobjohnson@example.com", flightNumber: "ABC123", bookingTime: "2023-06-16 09:45:00" }
+      ];
+
+      // Filter bookings based on flight number and booking time
+      var filteredBookings = dummyBookings.filter(function(booking) {
+        return booking.flightNumber === flightNumber && booking.bookingTime === bookingTime;
+      });
+
+      return filteredBookings;
+    }
+
+    // Function to update the booking table
+    function updateBookingTable(bookings) {
+      var bookingTableBody = document.getElementById("bookingTableBody");
+      bookingTableBody.innerHTML = "";
+
+      // Loop through bookings array and create booking rows
+      for (var i = 0; i < bookings.length; i++) {
+        var booking = bookings[i];
+
+        // Create booking table row
+        var row = document.createElement("tr");
+
+        // Create table data for each booking property
+        var nameCell = document.createElement("td");
+        nameCell.textContent = booking.name;
+
+        var emailCell = document.createElement("td");
+        emailCell.textContent = booking.email;
+
+        var flightNumberCell = document.createElement("td");
+        flightNumberCell.textContent = booking.flightNumber;
+
+        var bookingTimeCell = document.createElement("td");
+        bookingTimeCell.textContent = booking.bookingTime;
+
+        // Append cells to the row
+        row.appendChild(nameCell);
+        row.appendChild(emailCell);
+        row.appendChild(flightNumberCell);
+        row.appendChild(bookingTimeCell);
+
+        // Append row to the booking table
+        bookingTableBody.appendChild(row);
+      }
+    }
+  </script>
+</body>
+</html>

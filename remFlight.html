@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flight Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url("https://img.freepik.com/free-photo/marble-texture-background-pattern_1339-7553.jpg?w=360");
+      margin: 0;
+      padding: 0;
+    }
+.topnav {
+  overflow: hidden;
+  background-color: #1a1919;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(221, 216, 216, 0.1);
+      margin-top: 100px;
+    }
+    
+    .container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .container label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    .container input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+    
+    .container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .container button:hover {
+      background-color: #45a049;
+    }
+    
+    .container .flight-list {
+      margin-top: 20px;
+    }
+    
+    .container .flight-list li {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .container .flight-list li input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    
+    .container .remove-btn {
+      background-color: #FF4136;
+    }
+  </style>
+</head>
+<body>
+  <div class="topnav">
+    <a class="active" href="#home">Home</a>
+    <a href="#checkbookings">CheckBooking</a>
+    <a href="#back">Back</a>
+  </div>
+  <div class="container">
+    <h2>Flight Management</h2>
+    <form id="addFlightForm">
+      <label for="flightName">Flight Name:</label>
+      <input type="text" id="flightName" name="flightName" required>
+      
+      <label for="flightNumber">Flight Number:</label>
+      <input type="text" id="flightNumber" name="flightNumber" required>
+      
+      <label for="flightTiming">Flight Timing:</label>
+      <input type="text" id="flightTiming" name="flightTiming" required>
+      <button type="submit">Add Flight</button>
+    </form>
+
+   
+    
+    <div class="flight-list">
+      <h3>Available Flights</h3>
+      <ul id="flightList">
+        <!-- Flight items will be dynamically added here -->
+      </ul>
+      <button class="remove-btn" id="removeFlightsBtn" onclick="removeFlights()">Remove Selected Flights</button>
+    </div>
+  </div>
+
+  <script>
+    // Array to store added flights
+    var flights = [];
+
+    // Add Flight Form Submit Event Listener
+    document.getElementById("addFlightForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Get flight details from the form
+      var flightName = document.getElementById("flightName").value;
+      var flightNumber = document.getElementById("flightNumber").value;
+      var flightTiming = document.getElementById("flightTiming").value;
+      // Create flight object
+      var flight = {
+        name: flightName,
+        number: flightNumber,
+        timing: flightTiming
+      };
+
+      // Add flight to the flights array
+      flights.push(flight);
+
+      // Call function to update flight list
+      updateFlightList();
+
+      // Reset form fields
+      document.getElementById("flightName").value = "";
+      document.getElementById("flightNumber").value = "";
+      document.getElementById("flightTiming").value = "";
+    });
+
+    // Function to update the flight list
+    function updateFlightList() {
+      var flightList = document.getElementById("flightList");
+      flightList.innerHTML = "";
+
+      // Loop through flights array and create flight items
+      for (var i = 0; i < flights.length; i++) {
+        var flight = flights[i];
+
+        // Create flight list item
+        var listItem = document.createElement("li");
+
+        // Create checkbox for flight selection
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = "flightCheckbox";
+        checkbox.value = i;
+
+        // Create label for flight name and number
+        var label = document.createElement("label");
+        label.innerText = flight.name + " - " + flight.number + " - Timing: " + flight.timing;
+
+        // Append checkbox and label to list item
+        listItem.appendChild(checkbox);
+        listItem.appendChild(label);
+
+        // Append list item to flight list
+        flightList.appendChild(listItem);
+      }
+    }
+
+    // Function to remove selected flights
+    function removeFlights() {
+      var checkboxes = document.getElementsByName("flightCheckbox");
+      var selectedFlights = [];
+
+      // Loop through checkboxes to find selected flights
+      for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+          selectedFlights.push(i);
+        }
+      }
+
+      // Remove selected flights from the flights array
+      for (var j = selectedFlights.length - 1; j >= 0; j--) {
+        flights.splice(selectedFlights[j], 1);
+      }
+
+      // Call function to update flight list
+      updateFlightList();
+    }
+  </script>
+</body>
+</html>
